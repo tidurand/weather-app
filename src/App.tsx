@@ -1,5 +1,6 @@
 import SearchBar from "./components/SearchBar/SearchBar"
 import WeatherDisplayer from "./components/WeatherDisplayer/WeatherDisplayer"
+import './App.scss'
 
 function App() {
 
