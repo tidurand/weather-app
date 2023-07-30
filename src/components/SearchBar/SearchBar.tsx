@@ -1,8 +1,17 @@
-import { Autocomplete, Box, Grid, TextField, Typography, debounce } from '@mui/material'
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Grid,
+  InputAdornment,
+  TextField,
+  Typography,
+  debounce,
+} from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import parse from 'autosuggest-highlight/parse'
 import './SearchBar.scss'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 const loadScript = (src: string, position: HTMLElement | null, id: string) => {
   if (!position) {
@@ -16,7 +25,9 @@ const loadScript = (src: string, position: HTMLElement | null, id: string) => {
   position.appendChild(script)
 }
 
-// const autocompleteService = { current: null }
+interface SearchBarProps {
+  setCity: React.Dispatch<React.SetStateAction<string>>
+}
 
 interface MainTextMatchedSubstrings {
   offset: number
@@ -44,7 +55,7 @@ interface AutocompleteService {
 
 const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY
 
-const SearchBar = () => {
+const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
   const [value, setValue] = useState<PlaceType | null>(null)
   const [inputValue, setInputValue] = useState('')
   const [options, setOptions] = useState<readonly PlaceType[]>([])
@@ -72,6 +83,10 @@ const SearchBar = () => {
       ),
     []
   )
+
+  const handleClick = useCallback(() => {
+    setCity(inputValue)
+  }, [inputValue, setCity])
 
   useEffect(() => {
     let active = true
@@ -126,6 +141,16 @@ const SearchBar = () => {
           fullWidth
           margin='normal'
           sx={{ backgroundColor: 'white', borderRadius: '5px' }}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <InputAdornment position='end'>
+                <Button variant='outlined' onClick={handleClick}>
+                  Enter
+                </Button>
+              </InputAdornment>
+            ),
+          }}
         />
       )}
       renderOption={(props, option) => {
