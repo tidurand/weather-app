@@ -2,6 +2,8 @@
 import { useEffect } from 'react'
 import './WeatherDisplayer.scss'
 import axios from 'axios'
+import HourlyCard from './partials/HourlyCard'
+import MainCard from './partials/MainCard'
 
 interface WeatherDisplayerProps {
   city: string
@@ -30,7 +32,20 @@ const WeatherDisplayer: React.FC<WeatherDisplayerProps> = ({ city }) => {
     if (city) void fetchData()
   }, [city])
 
-  return <div className='weatherDisplayer'></div>
+  return (
+    <div className='weatherDisplayer'>
+      <p className='dayText'>Today</p>
+      <MainCard />
+      <div className='hourlyContainer'>
+        <HourlyCard />
+        <HourlyCard />
+        <HourlyCard />
+        <HourlyCard />
+        <HourlyCard />
+        <HourlyCard />
+      </div>
+    </div>
+  )
 }
 
 export default WeatherDisplayer

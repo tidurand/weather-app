@@ -1,7 +1,8 @@
 .App {
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100vh;
-  text-align: -webkit-center;
-  text-align: -moz-center;
+  width: 100vw;
   background-image: url('./assets/cloud.jpg');
 }

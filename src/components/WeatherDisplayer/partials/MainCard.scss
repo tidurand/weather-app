@@ -1,0 +1,28 @@
+.mainCard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+
+  .temperature {
+    font-size: 5em;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    background: linear-gradient(90deg,rgba(255, 255, 255, 1), rgba(162, 206, 252, 1) 60%, rgba(162, 206, 252, 1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .additionnalInformations {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .additionnalInformations > * {
+    text-align: center;
+  }
+}

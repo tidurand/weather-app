@@ -8,13 +8,8 @@ function App() {
 
   return (
     <div className='App'>
-      <header className='App-header'>
-        <SearchBar setCity={setCity} />
-      </header>
-      <main>
-        <WeatherDisplayer city={city} />
-      </main>
-      <footer></footer>
+      <SearchBar setCity={setCity} />
+      <WeatherDisplayer city={city} />
     </div>
   )
 }
