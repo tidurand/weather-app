@@ -1,24 +1,29 @@
+import { CityData } from '../../../hooks/useCity'
 import './MainCard.scss'
 
-interface MainCardProps {}
+interface MainCardProps {
+  data: CityData
+}
 
-const MainCard: React.FC<MainCardProps> = () => {
+const MainCard: React.FC<MainCardProps> = ({ data }) => {
   return (
     <div className='mainCard'>
       <div className='mainInformations'>
-        <p className='temperature'>20°</p>
-        <p>Partiellement nuageux</p>
-        <p>Min: 12° Max: 20°</p>
+        <p className='temperature'>{data.current.temp}°</p>
+        <p>{data.current.description}</p>
+        <p>
+          Min: {data.current.min}° Max: {data.current.max}°
+        </p>
       </div>
       <div className='additionnalInformations'>
         <div className='wind'>
           <img src='/src/assets/wind.png' title='wind icon' width='32px' />
-          <p>10km/h</p>
+          <p>{data.current.wind}km/h</p>
           <p>Vent</p>
         </div>
         <div className='humidity'>
           <img src='/src/assets/humidity.png' title='humidity icon' width='32px' />
-          <p>50%</p>
+          <p>{data.current.humidity}%</p>
           <p>Humidité</p>
         </div>
       </div>
