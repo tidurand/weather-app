@@ -76,7 +76,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
   const fetch = useMemo(
     () =>
       debounce(
-        (request: { input: string }, callback: (results?: readonly PlaceType[] | null) => void) => {
+        (
+          request: { input: string; types: string[] },
+          callback: (results?: readonly PlaceType[] | null) => void
+        ) => {
           autocompleteService.current?.getPlacePredictions(request, callback)
         },
         400
@@ -101,7 +104,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
       return undefined
     }
 
-    fetch({ input: inputValue }, (results?: readonly PlaceType[] | null) => {
+    fetch({ input: inputValue, types: ['(cities)'] }, (results?: readonly PlaceType[] | null) => {
       if (active) {
         let newOptions: readonly PlaceType[] = []
         if (value) newOptions = [value]
