@@ -57,8 +57,6 @@ const useCity = (city: string = 'Paris') => {
           hourly: day.hour.map((hour: any) => ({
             temp: hour.temp_c,
             description: hour.condition.text,
-            max: hour.temp_c,
-            min: hour.temp_c,
           })),
         })),
       }

@@ -22,10 +22,10 @@
   }
 
   .hourlyContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
+    width: 60vw;
+
+    .swiper-slide {
+      width: auto;
+    }
   }
 }

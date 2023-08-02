@@ -26,7 +26,7 @@ export interface AutocompleteService {
 
 // Weather API
 
-interface Informations {
+export interface Informations {
   temp: number
   description: string
   wind?: number
