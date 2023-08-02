@@ -4,27 +4,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { CityData } from '../interfaces'
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
-
-interface Informations {
-  temp: number
-  description: string
-  wind?: number
-  humidity?: number
-  max: number
-  min: number
-}
-
-interface DailyData {
-  global: Informations
-  hourly: Informations[]
-}
-
-export interface CityData {
-  current: Informations
-  day: DailyData[]
-}
 
 const useCity = (city: string = 'Paris') => {
   const [data, setData] = useState<any>()

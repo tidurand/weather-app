@@ -12,6 +12,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import parse from 'autosuggest-highlight/parse'
 import './SearchBar.scss'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { AutocompleteService, PlaceType } from '../../interfaces'
 
 const loadScript = (src: string, position: HTMLElement | null, id: string) => {
   if (!position) {
@@ -27,30 +28,6 @@ const loadScript = (src: string, position: HTMLElement | null, id: string) => {
 
 interface SearchBarProps {
   setCity: React.Dispatch<React.SetStateAction<string>>
-}
-
-interface MainTextMatchedSubstrings {
-  offset: number
-  length: number
-}
-interface StructuredFormatting {
-  main_text: string
-  secondary_text: string
-  main_text_matched_substrings?: readonly MainTextMatchedSubstrings[]
-}
-interface PlaceType {
-  description: string
-  structured_formatting: StructuredFormatting
-}
-
-interface AutocompleteService {
-  getPlacePredictions(
-    request: google.maps.places.AutocompletionRequest,
-    callback: (
-      results?: google.maps.places.AutocompletePrediction[] | null,
-      status?: google.maps.places.PlacesServiceStatus
-    ) => void
-  ): void
 }
 
 const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY
