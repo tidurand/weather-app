@@ -28,8 +28,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
   const autocompleteService = useRef<AutocompleteService | null>(null)
 
   const handleClick = useCallback(() => {
-    setCity(inputValue)
-  }, [inputValue, setCity])
+    setCity(cityValue?.structured_formatting.main_text || inputValue)
+  }, [cityValue, inputValue, setCity])
 
   const getCitiesSuggestions = useMemo(
     () =>

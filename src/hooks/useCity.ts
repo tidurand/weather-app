@@ -39,6 +39,7 @@ const useCity = (city: string = 'Paris') => {
   useEffect(() => {
     if (data) {
       const cityData: CityData = {
+        location: data.location.name,
         current: {
           temp: data.current.temp_c,
           description: data.current.condition.text,

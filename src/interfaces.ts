@@ -41,6 +41,7 @@ interface DailyData {
 }
 
 export interface CityData {
+  location: string
   current: Informations
   day: DailyData[]
 }

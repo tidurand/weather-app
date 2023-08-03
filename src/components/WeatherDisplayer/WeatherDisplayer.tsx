@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import './WeatherDisplayer.scss'
 import HourlyCard from './partials/HourlyCard'
 import MainCard from './partials/MainCard'
@@ -15,18 +14,18 @@ interface WeatherDisplayerProps {
 
 const WeatherDisplayer: React.FC<WeatherDisplayerProps> = ({ city }) => {
   const cityData = useCity(city)
+  const getHours = new Date().getHours()
 
   return (
     <div className='weatherDisplayer'>
-      <p className='dayText'>Today</p>
+      <p className='dayText'>{cityData?.location || fakeData.location}</p>
       <MainCard data={cityData || fakeData} />
       <Swiper
         modules={[Navigation]}
         navigation
         spaceBetween={40}
         slidesPerView={'auto'}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        initialSlide={getHours - 2}
         className='hourlyContainer'
       >
         {cityData?.day[0].hourly.map((hour, index) => (
