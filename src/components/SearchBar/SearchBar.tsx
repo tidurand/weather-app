@@ -13,18 +13,7 @@ import parse from 'autosuggest-highlight/parse'
 import './SearchBar.scss'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AutocompleteService, PlaceType } from '../../interfaces'
-
-const loadScript = (src: string, position: HTMLElement | null, id: string) => {
-  if (!position) {
-    return
-  }
-
-  const script = document.createElement('script')
-  script.setAttribute('async', '')
-  script.setAttribute('id', id)
-  script.src = src
-  position.appendChild(script)
-}
+import { loadScript } from '../../utils/loadScript'
 
 interface SearchBarProps {
   setCity: React.Dispatch<React.SetStateAction<string>>
@@ -33,24 +22,16 @@ interface SearchBarProps {
 const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY
 
 const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
-  const [value, setValue] = useState<PlaceType | null>(null)
+  const [cityValue, setCityValue] = useState<PlaceType | null>(null)
   const [inputValue, setInputValue] = useState('')
   const [options, setOptions] = useState<readonly PlaceType[]>([])
-  const loaded = useRef(false)
   const autocompleteService = useRef<AutocompleteService | null>(null)
 
-  if (typeof window !== 'undefined' && !loaded.current) {
-    if (!document.querySelector('#google-maps')) {
-      loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places&callback=Function.prototype`,
-        document.querySelector('head'),
-        'google-maps'
-      )
-    }
-    loaded.current = true
-  }
+  const handleClick = useCallback(() => {
+    setCity(inputValue)
+  }, [inputValue, setCity])
 
-  const fetch = useMemo(
+  const getCitiesSuggestions = useMemo(
     () =>
       debounce(
         (
@@ -64,69 +45,66 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
     []
   )
 
-  const handleClick = useCallback(() => {
-    setCity(inputValue)
-  }, [inputValue, setCity])
+  useEffect(() => {
+    if (!window.google && !document.querySelector('#google-maps')) {
+      loadScript(
+        `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places&callback=Function.prototype`,
+        'google-maps'
+      )
+    }
+  }, [])
 
   useEffect(() => {
-    let active = true
-
     if (!autocompleteService.current && window.google) {
-      autocompleteService.current = new window.google.maps.places.AutocompleteService()
-    }
-    if (!autocompleteService.current) return undefined
-
-    if (inputValue === '') {
-      setOptions(value ? [value] : [])
-      return undefined
-    }
-
-    fetch({ input: inputValue, types: ['(cities)'] }, (results?: readonly PlaceType[] | null) => {
-      if (active) {
-        let newOptions: readonly PlaceType[] = []
-        if (value) newOptions = [value]
-        if (results) newOptions = [...newOptions, ...results]
-        setOptions(newOptions)
+      try {
+        autocompleteService.current = new window.google.maps.places.AutocompleteService()
+      } catch (error) {
+        console.error('Failed to initialize AutocompleteService:', error)
       }
-    })
-
-    return () => {
-      active = false
     }
-  }, [value, inputValue, fetch])
+
+    getCitiesSuggestions(
+      { input: inputValue, types: ['(cities)'] },
+      (results?: readonly PlaceType[] | null) => {
+        if (cityValue && results) {
+          setOptions([cityValue, ...results])
+        } else {
+          setOptions(results || [])
+        }
+      }
+    )
+  }, [cityValue, inputValue, getCitiesSuggestions])
 
   return (
     <Autocomplete
       id='searchBar'
       sx={{ width: '60%' }}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
-      filterOptions={(x) => x}
       options={options}
       autoComplete
       includeInputInList
       filterSelectedOptions
-      value={value}
-      noOptionsText='No locations'
+      value={cityValue}
       onChange={(_event, newValue: PlaceType | null) => {
-        setOptions(newValue ? [newValue, ...options] : options)
-        setValue(newValue)
+        setCityValue(newValue)
       }}
       onInputChange={(_event, newInputValue) => {
         setInputValue(newInputValue)
+        setOptions([])
       }}
       renderInput={(params) => (
         <TextField
           {...params}
-          label='Add a location'
+          placeholder='Entrez une ville'
           fullWidth
           margin='normal'
-          sx={{ backgroundColor: 'white', borderRadius: '5px' }}
+          sx={{ backgroundColor: 'white', borderRadius: '5px', marginBottom: '10px' }}
           InputProps={{
             ...params.InputProps,
             endAdornment: (
               <InputAdornment position='end'>
-                <Button variant='outlined' onClick={handleClick}>
-                  Enter
+                <Button variant='text' onClick={handleClick}>
+                  Valider
                 </Button>
               </InputAdornment>
             ),
@@ -137,7 +115,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
         const matches = option.structured_formatting.main_text_matched_substrings || []
 
         const parts = parse(
-          option.structured_formatting.main_text,
+          option.structured_formatting.main_text || '',
           matches.map((match) => [match.offset, match.offset + match.length])
         )
 
