@@ -5,4 +5,12 @@
   height: 100vh;
   width: 100vw;
   background-image: url('./assets/cloud.jpg');
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 800px) {
+  .App {
+    display: block;
+  }
 }

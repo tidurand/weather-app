@@ -1,6 +1,8 @@
 .weatherDisplayer {
   width: 60vw;
   height: 35vw;
+  min-width: 800px;
+  min-height: 500px;
   margin-top: 20px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
@@ -16,13 +18,14 @@
   .dayText {
     margin: 0;
     font-family: Roboto;
-    font-size: 3em;
+    font-size: calc(2em + 2vw);
     font-weight: 700;
     color: white;
   }
 
   .hourlyContainer {
     width: 60vw;
+    min-width: 800px;
 
     .swiper-slide {
       width: auto;

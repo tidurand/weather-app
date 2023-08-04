@@ -78,7 +78,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
   return (
     <Autocomplete
       id='searchBar'
-      sx={{ width: '60%' }}
+      sx={{ width: '60%', minWidth: '800px' }}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
       options={options}
       autoComplete
