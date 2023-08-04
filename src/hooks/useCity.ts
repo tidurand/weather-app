@@ -43,6 +43,7 @@ const useCity = (city: string = 'Paris') => {
         current: {
           temp: data.current.temp_c,
           description: data.current.condition.text,
+          codeIcon: data.current.condition.code,
           wind: data.current.wind_kph,
           humidity: data.current.humidity,
           max: data.forecast.forecastday[0].day.maxtemp_c,
@@ -52,12 +53,14 @@ const useCity = (city: string = 'Paris') => {
           global: {
             temp: day.day.avgtemp_c,
             description: day.day.condition.text,
+            codeIcon: day.day.condition.code,
             max: day.day.maxtemp_c,
             min: day.day.mintemp_c,
           },
           hourly: day.hour.map((hour: any) => ({
             temp: hour.temp_c,
             description: hour.condition.text,
+            codeIcon: hour.condition.code,
           })),
         })),
       }

@@ -1,4 +1,5 @@
 import { Informations } from '../../../interfaces'
+import { findImageByCode } from '../../../utils/parsing'
 import './HourlyCard.scss'
 
 interface HourlyCardProps {
@@ -12,7 +13,7 @@ const HourlyCard: React.FC<HourlyCardProps> = ({ data, index }) => {
       <p className='hour'>{index}h</p>
       <img
         className='weatherIcon'
-        src='https://cdn.weatherapi.com/weather/128x128/day/116.png'
+        src={`/src/assets/icons/${findImageByCode(data.codeIcon?.toString() || '1000')}`}
         width='64px'
       />
       <p className='temp'>{data.temp}°</p>

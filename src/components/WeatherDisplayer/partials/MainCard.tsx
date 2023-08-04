@@ -1,4 +1,5 @@
 import { CityData } from '../../../interfaces'
+import { findImageByCode } from '../../../utils/parsing'
 import './MainCard.scss'
 
 interface MainCardProps {
@@ -10,7 +11,7 @@ const MainCard: React.FC<MainCardProps> = ({ data }) => {
     <div className='mainCard'>
       <div className='mainInformations'>
         <p className='temperature'>{data.current.temp}°</p>
-        <p>{data.current.description}</p>
+        <p className='description'>{data.current.description}</p>
         <p>
           Min: {data.current.min}° Max: {data.current.max}°
         </p>
@@ -27,7 +28,10 @@ const MainCard: React.FC<MainCardProps> = ({ data }) => {
           <p>Humidité</p>
         </div>
       </div>
-      <img className='weatherIcon' src='https://cdn.weatherapi.com/weather/128x128/day/116.png' />
+      <img
+        className='weatherIcon'
+        src={`/src/assets/icons/${findImageByCode(data.current.codeIcon?.toString() || '1000')}`}
+      />
     </div>
   )
 }

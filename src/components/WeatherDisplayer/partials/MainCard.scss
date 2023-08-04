@@ -3,16 +3,26 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
+  text-align: center;
 
-  .temperature {
-    font-size: calc(2em + 3vw);
-    font-weight: 700;
-    line-height: 1;
-    color: white;
-    background: linear-gradient(90deg,rgba(255, 255, 255, 1), rgba(162, 206, 252, 1) 60%, rgba(162, 206, 252, 1) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .mainInformations {
+    > * {
+      margin-bottom: 10px;
+    }
+    .temperature {
+      font-size: calc(2em + 3vw);
+      font-weight: 700;
+      line-height: 1;
+      color: white;
+      background: linear-gradient(90deg,rgba(255, 255, 255, 1), rgba(162, 206, 252, 1) 60%, rgba(162, 206, 252, 1) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  
+    .description {
+      max-width: 200px;
+    }
   }
 
   .additionnalInformations {
@@ -22,7 +32,8 @@
     justify-content: space-evenly;
   }
 
-  .additionnalInformations > * {
-    text-align: center;
+  .weatherIcon {
+    width: calc(5em + 6vw);
+    margin-bottom: 50px;
   }
 }

@@ -29,6 +29,7 @@ export interface AutocompleteService {
 export interface Informations {
   temp: number
   description: string
+  codeIcon?: number
   wind?: number
   humidity?: number
   max: number
