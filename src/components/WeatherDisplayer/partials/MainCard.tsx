@@ -1,4 +1,4 @@
-import { CityData } from '../../../hooks/useCity'
+import { CityData } from '../../../interfaces'
 import './MainCard.scss'
 
 interface MainCardProps {
