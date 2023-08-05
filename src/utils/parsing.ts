@@ -26,6 +26,50 @@ const imageList = [
   '1276_1282.svg',
 ]
 
+const backgroundList = {
+  sunny: ['1000'],
+  suncloudy: ['1003', '1063', '1072', '1150', '1153', '1180'],
+  cloudy: ['1006', '1009', '1030', '1135', '1147'],
+  rainy: [
+    '1066',
+    '1069',
+    '1210',
+    '1216',
+    '1222',
+    '1183',
+    '1240',
+    '1186',
+    '1189',
+    '1243',
+    '1192',
+    '1195',
+    '1246',
+    '1198',
+    '1201',
+    '1276',
+    '1282',
+  ],
+  snowy: [
+    '1114',
+    '1117',
+    '1168',
+    '1171',
+    '1204',
+    '1207',
+    '1213',
+    '1219',
+    '1225',
+    '1237',
+    '1249',
+    '1252',
+    '1255',
+    '1258',
+    '1261',
+    '1264',
+  ],
+  stormy: ['1087', '1273', '1279'],
+}
+
 export const findImageByCode = (code: string): string | null => {
   for (const fileName of imageList) {
     const regex = new RegExp('_|.svg', 'g')
@@ -35,4 +79,14 @@ export const findImageByCode = (code: string): string | null => {
     }
   }
   return null
+}
+
+export const setThemeByCode = (code: string | undefined): string => {
+  if (!code) return 'sunny'
+  for (const [theme, codes] of Object.entries(backgroundList)) {
+    if (codes.includes(code)) {
+      return theme
+    }
+  }
+  return 'sunny'
 }
