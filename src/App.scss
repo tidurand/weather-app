@@ -5,6 +5,7 @@
   height: 100vh;
   width: 100vw;
   background-image: var(--backgroundImage);
+  transition: background-image 1.5s linear;
   overflow-x: auto;
   overflow-y: auto;
 }
