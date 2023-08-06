@@ -8,7 +8,7 @@ import { fakeData } from './utils/fakeData'
 import { setThemeByCode } from './utils/parsing'
 
 function App() {
-  const [city, setCity] = useState('')
+  const [city, setCity] = useState('Paris')
   const cityData = useCity(city)
 
   return (
