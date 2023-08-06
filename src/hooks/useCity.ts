@@ -6,9 +6,9 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { CityData } from '../interfaces'
 
-const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
+const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY as string
 
-const useCity = (city: string = 'Paris') => {
+const useCity = (city: string) => {
   const [data, setData] = useState<any>()
   const [cleanData, setCleanData] = useState<CityData>()
 

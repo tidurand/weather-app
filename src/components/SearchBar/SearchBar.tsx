@@ -10,7 +10,7 @@ interface SearchBarProps {
   setCity: React.Dispatch<React.SetStateAction<string>>
 }
 
-const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY
+const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY as string
 
 const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
   const [inputValue, setInputValue] = useState('')
