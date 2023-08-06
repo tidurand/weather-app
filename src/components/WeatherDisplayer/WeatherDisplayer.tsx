@@ -28,7 +28,7 @@ const WeatherDisplayer: React.FC<WeatherDisplayerProps> = ({ cityData }) => {
       >
         {cityData?.day[0].hourly.map((hour, index) => (
           <SwiperSlide key={index}>
-            <HourlyCard key={index} index={index} data={hour} />
+            <HourlyCard index={index} data={hour} />
           </SwiperSlide>
         ))}
       </Swiper>

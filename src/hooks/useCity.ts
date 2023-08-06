@@ -24,7 +24,6 @@ const useCity = (city: string) => {
           },
         })
         if (response.status === 200) {
-          console.log(response.data)
           setData(response.data)
         } else {
           console.log('error', response.status)
