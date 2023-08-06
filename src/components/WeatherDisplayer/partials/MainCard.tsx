@@ -18,19 +18,19 @@ const MainCard: React.FC<MainCardProps> = ({ data }) => {
       </div>
       <div className='additionnalInformations'>
         <div className='wind'>
-          <img src='/src/assets/wind.png' title='wind icon' width='32px' />
+          <img src='/assets/wind.png' title='wind icon' width='32px' />
           <p>{data.current.wind}km/h</p>
           <p>Vent</p>
         </div>
         <div className='humidity'>
-          <img src='/src/assets/humidity.png' title='humidity icon' width='32px' />
+          <img src='/assets/humidity.png' title='humidity icon' width='32px' />
           <p>{data.current.humidity}%</p>
           <p>Humidité</p>
         </div>
       </div>
       <img
         className='weatherIcon'
-        src={`/src/assets/icons/${findImageByCode(data.current.codeIcon?.toString() || '1000')}`}
+        src={`/assets/icons/${findImageByCode(data.current.codeIcon?.toString() || '1000')}`}
       />
     </div>
   )
