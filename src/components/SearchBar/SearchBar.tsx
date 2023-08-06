@@ -1,13 +1,4 @@
-import {
-  Autocomplete,
-  Box,
-  Button,
-  Grid,
-  InputAdornment,
-  TextField,
-  Typography,
-  debounce,
-} from '@mui/material'
+import { Autocomplete, Box, Grid, TextField, Typography, debounce } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import parse from 'autosuggest-highlight/parse'
 import './SearchBar.scss'
@@ -22,14 +13,16 @@ interface SearchBarProps {
 const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY
 
 const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
-  const [cityValue, setCityValue] = useState<PlaceType | null>(null)
   const [inputValue, setInputValue] = useState('')
   const [options, setOptions] = useState<readonly PlaceType[]>([])
   const autocompleteService = useRef<AutocompleteService | null>(null)
 
-  const handleClick = useCallback(() => {
-    setCity(cityValue?.structured_formatting.main_text || inputValue)
-  }, [cityValue, inputValue, setCity])
+  const handleChange = useCallback(
+    (_event?: React.SyntheticEvent, newValue?: PlaceType | null) => {
+      setCity(newValue?.structured_formatting.main_text || inputValue)
+    },
+    [inputValue, setCity]
+  )
 
   const getCitiesSuggestions = useMemo(
     () =>
@@ -66,14 +59,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
     getCitiesSuggestions(
       { input: inputValue, types: ['(cities)'] },
       (results?: readonly PlaceType[] | null) => {
-        if (cityValue && results) {
-          setOptions([cityValue, ...results])
-        } else {
-          setOptions(results || [])
-        }
+        setOptions(results || [])
       }
     )
-  }, [cityValue, inputValue, getCitiesSuggestions])
+  }, [inputValue, getCitiesSuggestions])
 
   return (
     <Autocomplete
@@ -84,14 +73,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
       autoComplete
       includeInputInList
       filterSelectedOptions
-      value={cityValue}
-      onChange={(_event, newValue: PlaceType | null) => {
-        setCityValue(newValue)
-      }}
+      forcePopupIcon={false}
+      value={null}
       onInputChange={(_event, newInputValue) => {
         setInputValue(newInputValue)
         setOptions([])
       }}
+      onChange={handleChange}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -99,16 +87,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCity }) => {
           fullWidth
           margin='normal'
           sx={{ backgroundColor: 'white', borderRadius: '5px', marginBottom: '10px' }}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <InputAdornment position='end'>
-                <Button variant='text' onClick={handleClick}>
-                  Valider
-                </Button>
-              </InputAdornment>
-            ),
-          }}
         />
       )}
       renderOption={(props, option) => {
