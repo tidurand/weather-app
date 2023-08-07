@@ -13,7 +13,7 @@ const HourlyCard: React.FC<HourlyCardProps> = ({ data, index }) => {
       <p className='hour'>{index}h</p>
       <img
         className='weatherIcon'
-        src={`/assets/icons/${findImageByCode(data.codeIcon?.toString() || '1000')}`}
+        src={`/weather-app/assets/icons/${findImageByCode(data.codeIcon?.toString() || '1000')}`}
         width='64px'
       />
       <p className='temp'>{data.temp}°</p>
