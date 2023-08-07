@@ -24,7 +24,7 @@ jobs:
   # Single deploy job since we're just deploying
   deploy:
     environment:
-      name: github-pages
+      name: App-env
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
@@ -39,6 +39,9 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          VITE_MAPS_API_KEY: ${{secrets.VITE_MAPS_API_KEY}}
+          VITE_WEATHER_API_KEY: ${{secrets.VITE_WEATHER_API_KEY}}
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
