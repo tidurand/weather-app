@@ -161,12 +161,6 @@ export const fakeData = {
           max: 12,
           min: 12,
         },
-        {
-          temp: 12,
-          description: 'Ensoleillé',
-          max: 12,
-          min: 12,
-        },
       ],
     },
     {
