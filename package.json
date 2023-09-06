@@ -7,15 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
-    "@types/autosuggest-highlight": "^3.2.0",
-    "@types/google.maps": "^3.53.5",
     "autosuggest-highlight": "^3.3.4",
     "axios": "^1.4.0",
     "react": "^18.2.0",
@@ -24,6 +23,12 @@
     "swiper": "^10.1.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.3.1",
+    "@testing-library/jest-dom": "^6.1.2",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/autosuggest-highlight": "^3.2.0",
+    "@types/google.maps": "^3.53.5",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
@@ -34,8 +39,10 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "jsdom": "^22.1.0",
     "prettier": "^3.0.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vitest": "^0.34.3"
   }
 }
