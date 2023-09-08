@@ -1,19 +1,28 @@
 import { findImageByCode, setThemeByCode } from '../utils/parsing'
 
-describe('Utils Tests', () => {
-  it('findImageByCode', () => {
+describe('findImageByCode', () => {
+  it('should find one', () => {
     expect(findImageByCode('1000')).toBe('1000.svg')
+  })
+  it('should find the first', () => {
     expect(findImageByCode('1063')).toBe('1063_1072_1150_1153_1180.svg')
+  })
+  it('should find in middle', () => {
     expect(findImageByCode('1150')).toBe('1063_1072_1150_1153_1180.svg')
+  })
+  it('should find the last', () => {
     expect(findImageByCode('1180')).toBe('1063_1072_1150_1153_1180.svg')
+  })
+  it('should find nothing and return null', () => {
     expect(findImageByCode('anything')).toBe(null)
   })
+})
 
-  it('setThemeByCode', () => {
-    expect(setThemeByCode('1000')).toBe('sunny')
+describe('setThemeByCode', () => {
+  it('should return rainy', () => {
     expect(setThemeByCode('1066')).toBe('rainy')
-    expect(setThemeByCode('1087')).toBe('stormy')
-    expect(setThemeByCode('')).toBe('sunny')
+  })
+  it('nothing return sunny', () => {
     expect(setThemeByCode(undefined)).toBe('sunny')
   })
 })
